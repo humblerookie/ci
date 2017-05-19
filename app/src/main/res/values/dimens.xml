@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_highest">16dp</dimen>
+    <dimen name="margin_high">12dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_smallest">2dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="progress_small">24dp</dimen>
+    <dimen name="progress_medium">32dp</dimen>
+    <dimen name="progress_large">48dp</dimen>
+
+</resources>
