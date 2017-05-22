@@ -14,6 +14,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -28,19 +29,18 @@ public class MainViewTest {
     @Test
     public void viewsRequiredArePresentInitially() {
         setUp();
-        assertEquals(mainActivity.findViewById(R.id.list).getVisibility(), View.VISIBLE);
-        assertEquals(mainActivity.findViewById(R.id.toolbar).getVisibility(), View.VISIBLE);
-        assertEquals(mainActivity.findViewById(R.id.error_text).getVisibility(), View.GONE);
-        assertEquals(mainActivity.findViewById(R.id.progress).getVisibility(), View.VISIBLE);
+        assertNotNull(mainActivity.findViewById(R.id.list));
+        assertNotNull(mainActivity.findViewById(R.id.toolbar));
+        assertNotNull(mainActivity.findViewById(R.id.error_text));
+        assertNotNull(mainActivity.findViewById(R.id.progress));
     }
 
     @Test
-    public void presenter() {
+    public void viewsRequiredAreVisible() {
         setUp();
         assertEquals(mainActivity.findViewById(R.id.list).getVisibility(), View.VISIBLE);
         assertEquals(mainActivity.findViewById(R.id.toolbar).getVisibility(), View.VISIBLE);
         assertEquals(mainActivity.findViewById(R.id.error_text).getVisibility(), View.GONE);
-        assertEquals(mainActivity.findViewById(R.id.progress).getVisibility(), View.VISIBLE);
     }
 
 
