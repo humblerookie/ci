@@ -20,7 +20,7 @@ dependencies:
     - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/client-secret.json
 test:
   pre:
-     - emulator -avd circleci-android24 -no-window:
+     - emulator -avd circleci-android22 -no-window:
             background: true
             parallel: true
         # wait for it to have booted
@@ -28,9 +28,9 @@ test:
         # run tests  against the emulator.
      - ./gradlew connectedAndroidUiMockAndroidTest
         # copy the build outputs to artifacts
-     - cp -r ContinuosIntegration/build/outputs $CIRCLE_ARTIFACTS
+     - cp -r app/build/outputs $CIRCLE_ARTIFACTS
         # copy the test results to the test results directory.
-     - cp -r ContinuosIntegration/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+     - cp -r app/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
   override:
     - ./gradlew testMockUnitTest -PdisablePreDex
 
