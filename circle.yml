@@ -21,7 +21,21 @@ dependencies:
 test:
   override:
     - ./gradlew testMockUnitTest -PdisablePreDex
-    - echo "y" | sudo /opt/google-cloud-sdk/bin/gcloud beta test android run --app app/build/outputs/apk/app-mock.apk --test app/build/outputs/apk/androidUiMock-androidTest.apk --device-ids Nexus5 --os-version-ids 22 --locales en --orientations portrait
+    - emulator -avd circleci-android22 -no-audio -no-window:
+              background: true
+              parallel: true
+          # wait for it to have booted
+          - circle-android wait-for-boot
+          # unlock the emulator screen
+          - sleep 30
+          - adb shell input keyevent 82
+          # run tests  against the emulator.
+          - ./gradlew connectedAndroidUiMockAndroidTest -PdisablePreDex
+          # copy the build outputs to artifacts
+          - cp -r app/build/outputs $CIRCLE_ARTIFACTS
+          # copy the test results to the test results directory.
+          - cp -r app/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
