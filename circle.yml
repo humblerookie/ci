@@ -1,4 +1,9 @@
 ## Gradle opts + JDK 8
+
+general:
+  branches:
+    only:
+      - master
 machine:
   environment:
     _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
@@ -13,11 +18,6 @@ dependencies:
     - sudo pip install -U crcmod
   post:
     - ./gradlew assembleAndroidUiMock assembleAndroidUiMockAndroidTest -PdisablePreDex
-    - echo $FIREBASE_SERVICE_ACCOUNT | base64 --decode > ${HOME}/client-secret.json
-    - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
-    - sudo /opt/google-cloud-sdk/bin/gcloud config set project $FIREBASE_PROJECT
-    - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components install beta
-    - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/client-secret.json
 test:
   pre:
      - emulator -avd circleci-android22 -no-window:
