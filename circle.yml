@@ -4,6 +4,7 @@ general:
   branches:
     only:
       - master
+      - develop
 machine:
   environment:
     _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
