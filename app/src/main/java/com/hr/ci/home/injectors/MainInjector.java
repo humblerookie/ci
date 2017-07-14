@@ -1,6 +1,7 @@
 package com.hr.ci.home.injectors;
 
 import com.hr.ci.commons.injectors.NetworkModuleInjector;
+import com.hr.ci.commons.injectors.SchedulerInjector;
 import com.hr.ci.home.api.NewsService;
 import com.hr.ci.home.interactor.MainInteractor;
 import com.hr.ci.home.interactor.MainInteractorImpl;
@@ -17,7 +18,10 @@ public class MainInjector {
     }
 
     public MainInteractor getMainInteractor(MainPresenter mainPresenter) {
-        MainInteractorImpl mainInteractor = new MainInteractorImpl(mainPresenter, NetworkModuleInjector.getRetrofit().create(NewsService.class));
+        MainInteractorImpl mainInteractor = new MainInteractorImpl(mainPresenter,
+                NetworkModuleInjector.getRetrofit(NetworkModuleInjector.getOkHttpClient()).create(NewsService.class)
+                , SchedulerInjector.getSchedulers()
+        );
         return mainInteractor;
     }
 }

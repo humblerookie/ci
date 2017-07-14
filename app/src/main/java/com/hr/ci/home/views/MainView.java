@@ -11,5 +11,5 @@ public interface MainView extends BaseView {
 
     void showData(List<Article> articles);
 
-    void toggleError(boolean makeVisible, int error);
+    void toggleError(boolean makeVisible, String error);
 }

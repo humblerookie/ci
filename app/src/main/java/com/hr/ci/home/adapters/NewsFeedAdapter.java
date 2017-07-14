@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.hr.ci.R;
-import com.hr.ci.commons.ImageLoader;
+import com.hr.ci.commons.util.ImageLoader;
 import com.hr.ci.commons.model.Article;
 import com.hr.ci.home.viewholders.ArticleHolder;
 

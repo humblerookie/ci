@@ -1,15 +1,21 @@
 package com.hr.ci.home.presenters;
 
-import com.hr.ci.commons.util.Constants;
-import com.hr.ci.commons.util.StringUtil;
-import com.hr.ci.home.interactor.MainInteractor;
 import com.hr.ci.commons.model.Article;
+import com.hr.ci.commons.model.ErrorResponse;
+import com.hr.ci.commons.presenters.BasePresenter;
+import com.hr.ci.commons.util.Constants;
+import com.hr.ci.home.interactor.MainInteractor;
 import com.hr.ci.home.views.MainView;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class MainPresenterImpl implements MainPresenter {
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
+
+public class MainPresenterImpl extends BasePresenter<MainView> implements MainPresenter {
 
 
     WeakReference<MainView> viewWeakReference;
@@ -29,9 +35,40 @@ public class MainPresenterImpl implements MainPresenter {
     public void fetchArticles() {
         if (isViewAttached()) {
             getView().toggleProgress(true);
-            getView().toggleError(false, 0);
+            getView().toggleError(false, null);
         }
-        interactor.fetchArticles(Constants.NEWS_SRC.TECHCRUNCH);
+
+        interactor.fetchArticles(getFetchArticlesObservable(), getFetchArticlesObserver());
+    }
+
+    private Observable<String> getFetchArticlesObservable() {
+        return Observable.just(Constants.NEWS_SRC.TECHCRUNCH);
+    }
+
+    private Observer<List<Article>> getFetchArticlesObserver() {
+        return new Observer<List<Article>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(List<Article> value) {
+                Timber.d("Got articles %d", value.size());
+                onArticleFetchSuccess(value);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Timber.e(e);
+                onArticleFetchFailure(getNetworkError(e));
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
     }
 
     @Override
@@ -43,10 +80,10 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void onArticleFetchFailure(String error) {
+    public void onArticleFetchFailure(ErrorResponse errorResponse) {
         if (isViewAttached()) {
             getView().toggleProgress(false);
-            getView().toggleError(true, StringUtil.getResourceId(error));
+            getView().toggleError(true, errorResponse.getMessage());
         }
 
     }

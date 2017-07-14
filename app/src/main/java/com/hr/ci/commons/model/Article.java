@@ -1,20 +1,19 @@
 package com.hr.ci.commons.model;
 
 
-import android.util.Log;
-
 import com.squareup.moshi.Json;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-import static android.content.ContentValues.TAG;
+import timber.log.Timber;
 
 
 public class Article {
 
-    private static final SimpleDateFormat from = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    private static final SimpleDateFormat to = new SimpleDateFormat("dd MMM yyyy 'at' hh:mm");
+    private static final SimpleDateFormat from = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+    private static final SimpleDateFormat to = new SimpleDateFormat("dd MMM yyyy 'at' hh:mm", Locale.getDefault());
     @Json(name = "author")
     private String author;
     @Json(name = "title")
@@ -76,7 +75,7 @@ public class Article {
         try {
             return to.format(from.parse(publishedAt));
         } catch (ParseException e) {
-            Log.e(TAG, "getPublishedAtVerbose: ", e);
+            Timber.e(e);
         }
         return null;
     }

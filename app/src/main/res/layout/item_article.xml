@@ -34,8 +34,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginRight="@dimen/margin_small"
-            android:text="by"
+            android:text="@string/titles_by"
             android:textColor="@color/black_30"
             android:textSize="14sp" />
 
@@ -50,9 +51,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_small"
-            android:text="on"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:text="@string/titles_on"
             android:textColor="@color/black_30"
             android:textSize="12sp" />
 

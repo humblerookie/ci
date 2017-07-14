@@ -3,4 +3,6 @@
 
     <string name="error.no_network">Poor network connectivity. Please try again.</string>
     <string name="error.server_issue">Oops something seems to be bugging our server. We\'re on it.</string>
+    <string name="titles_by">by</string>
+    <string name="titles_on">on</string>
 </resources>

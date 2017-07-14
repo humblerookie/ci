@@ -1,45 +1,39 @@
 package com.hr.ci.home.interactor;
 
-import android.util.Log;
-
-import com.hr.ci.commons.model.NewsFeed;
-import com.hr.ci.commons.util.Constants;
+import com.hr.ci.commons.interactors.BaseInteractor;
+import com.hr.ci.commons.model.Article;
 import com.hr.ci.home.api.NewsService;
 import com.hr.ci.home.presenters.MainPresenter;
 
-import java.io.IOException;
+import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.schedulers.Schedulers;
 
-public class MainInteractorImpl implements MainInteractor {
+public class MainInteractorImpl extends BaseInteractor implements MainInteractor {
 
-    MainPresenter mainPresenter;
-    private static final String TAG = "MainInteractorImpl";
+    final MainPresenter mainPresenter;
 
     final NewsService newsService;
 
-    public MainInteractorImpl(MainPresenter mainPresenter, NewsService newsService) {
+    final com.hr.ci.commons.util.Schedulers schedulers;
+
+
+    public MainInteractorImpl(MainPresenter mainPresenter, NewsService newsService, com.hr.ci.commons.util.Schedulers schedulers) {
         this.mainPresenter = mainPresenter;
         this.newsService = newsService;
+        this.schedulers = schedulers;
+
     }
 
     @Override
-    public void fetchArticles(String source) {
-        Call<NewsFeed> call = newsService.listArticles(source);
-        call.enqueue(new Callback<NewsFeed>() {
-            @Override
-            public void onResponse(Call<NewsFeed> call, Response<NewsFeed> response) {
-                mainPresenter.onArticleFetchSuccess(response.body().getArticles());
-
-            }
-
-            @Override
-            public void onFailure(Call<NewsFeed> call, Throwable t) {
-                Log.e(TAG, "onFailure: ", t);
-                mainPresenter.onArticleFetchFailure(t instanceof IOException ? Constants.ERROR.NETWORK_ERROR : Constants.ERROR.SERVER_ERROR);
-            }
-        });
+    public void fetchArticles(Observable<String> observable, Observer<List<Article>> subscriber) {
+        observable
+                .observeOn(Schedulers.io())
+                .flatMap(source -> newsService.listArticles(source))
+                .map(newsFeedResponse -> newsFeedResponse.getArticles())
+                .subscribeOn(schedulers.ui())
+                .subscribeWith(subscriber);
     }
 }

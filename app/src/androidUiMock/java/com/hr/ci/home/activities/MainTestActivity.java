@@ -5,10 +5,9 @@ import android.view.View;
 
 public class MainTestActivity extends MainActivity {
 
-        public boolean isIdle() {
-            return progress.getVisibility() != View.VISIBLE;
-        }
-
+    public boolean isIdle() {
+        return progress.getVisibility() != View.VISIBLE;
+    }
 
 
 }

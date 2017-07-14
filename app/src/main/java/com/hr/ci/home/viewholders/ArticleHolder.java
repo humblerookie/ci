@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hr.ci.R;
-import com.hr.ci.commons.ImageLoader;
+import com.hr.ci.commons.util.ImageLoader;
 import com.hr.ci.commons.model.Article;
 
 import butterknife.BindView;

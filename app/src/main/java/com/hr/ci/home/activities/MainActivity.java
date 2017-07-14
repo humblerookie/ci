@@ -9,9 +9,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hr.ci.R;
-import com.hr.ci.commons.ImageLoaderImpl;
 import com.hr.ci.commons.activities.BaseActivity;
 import com.hr.ci.commons.model.Article;
+import com.hr.ci.commons.util.ImageLoaderImpl;
 import com.hr.ci.home.adapters.NewsFeedAdapter;
 import com.hr.ci.home.injectors.MainInjector;
 import com.hr.ci.home.presenters.MainPresenter;
@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainView {
 
-    private static final String TAG = "MainActivity";
     @BindView(R.id.list)
     RecyclerView list;
 
@@ -81,10 +80,8 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public void toggleError(boolean makeVisible, int stringRes) {
+    public void toggleError(boolean makeVisible, String stringRes) {
         errorText.setVisibility(makeVisible ? View.VISIBLE : View.GONE);
-        if (stringRes != 0) {
-            errorText.setText(stringRes);
-        }
+        errorText.setText(stringRes);
     }
 }

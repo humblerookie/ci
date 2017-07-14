@@ -1,16 +1,21 @@
 package com.hr.ci.commons.util;
 
+import android.content.Context;
+
+import com.hr.ci.CiApplication;
 import com.hr.ci.R;
 
 public class StringUtil {
 
-    public static int getResourceId(String s) {
-        switch (s) {
+
+    public static String getResource(String id) {
+        Context context = CiApplication.getInstance();
+        switch (id) {
             case Constants.ERROR.NETWORK_ERROR:
-                return R.string.error_no_network;
+                return context.getString(R.string.error_no_network);
             case Constants.ERROR.SERVER_ERROR:
-                return R.string.error_server_issue;
+                return context.getString(R.string.error_server_issue);
         }
-        return 0;
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.hr.ci.commons;
+package com.hr.ci.commons.util;
 
 import android.app.Activity;
 import android.widget.ImageView;
