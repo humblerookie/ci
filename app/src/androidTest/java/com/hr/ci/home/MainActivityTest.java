@@ -7,7 +7,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.bumptech.glide.request.ResourceCallback;
 import com.hr.ci.R;
 import com.hr.ci.commons.injectors.NetworkModuleInjector;
 import com.hr.ci.home.activities.MainTestActivity;

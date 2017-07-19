@@ -1,5 +1,9 @@
 package com.hr.ci;
 
+import com.hr.ci.commons.di.components.ApplicationComponent;
+import com.hr.ci.commons.di.components.DaggerApplicationComponent;
+import com.hr.ci.commons.di.modules.ApplicationModule;
+import com.hr.ci.commons.di.modules.NetworkModule;
 import com.hr.ci.commons.injectors.NetworkModuleInjector;
 import com.hr.ci.commons.logging.DebugLogTree;
 import com.hr.ci.commons.util.Constants;
@@ -15,6 +19,9 @@ public class CiApplication extends BaseApplication {
         super.onCreate();
         instance = this;
         initTestResources();
+        ApplicationComponent component = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .networkModule(new NetworkModule()).build();
     }
 
     private void initTestResources() {

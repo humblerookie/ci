@@ -49,4 +49,7 @@ ext {
     robolectricVersion = '3.3.2'
     hamcrestVersion = '1.3'
     mockitoVersion = '1.10.19'
+    daggerVersion = '2.11'
+    mockServerVersion = '2.7.5'
+    mockRetrofitVersion = '2.3.0'
 }
